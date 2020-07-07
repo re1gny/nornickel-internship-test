@@ -68,19 +68,15 @@ const IPhoneMockupWrapper = styled.div`
   }
 `;
 
+const scrollbarWidth = getScrollbarWidth();
+
 export const ScreenWrapper = React.forwardRef((props, ref) => {
   const { background, backgroundType, preloadImages, clock, children } = props;
-
-  const [scrollbarWidth, setScrollbarWidth] = useState(0);
 
   useEffect(() => {
     const clears = preloadImages && preloadImages.map(img => preloadImage(img));
     return () => clears && clears.forEach(clear => clear());
   }, [preloadImages]);
-
-  useEffect(() => {
-    setScrollbarWidth(getScrollbarWidth());
-  }, []);
 
   return (
     <Wrapper>
