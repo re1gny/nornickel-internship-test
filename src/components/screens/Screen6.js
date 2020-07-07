@@ -28,7 +28,7 @@ const Image = styled.img`
   transform: translate(10%, 38%);
 `;
 
-const person1 = process.env.PUBLIC_URL + '/images/person_1.png';
+const person1 = '/images/person_1.png';
 
 const dialogText = 'Секретарь на ресепшн объяснил, что\n' +
   'инструктаж пройдет на 26 этаже.\n' +

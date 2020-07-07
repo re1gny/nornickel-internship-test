@@ -35,11 +35,11 @@ const Image = styled.img`
 
 const internshipLink = 'https://www.nornickel.ru/careers/why-nornickel';
 
-const vkIcon = process.env.PUBLIC_URL + '/images/vk_icon.png';
-const copper = process.env.PUBLIC_URL + '/images/copper.png';
-const platinum = process.env.PUBLIC_URL + '/images/platinum.png';
-const palladium = process.env.PUBLIC_URL + '/images/palladium.png';
-const cobalt = process.env.PUBLIC_URL + '/images/cobalt.png';
+const vkIcon = '/images/vk_icon.png';
+const copper = '/images/copper.png';
+const platinum = '/images/platinum.png';
+const palladium = '/images/palladium.png';
+const cobalt = '/images/cobalt.png';
 
 const shareImages = { copper, platinum, palladium, cobalt };
 
@@ -81,7 +81,7 @@ export const Screen21 = () => {
   const suitableCategoryId = Object.keys(points).find(key => points[key] === maxPointsValue);
   const suitableCategory = categories[suitableCategoryId];
 
-  const shareUrl = encodeURIComponent(window.location.origin);
+  const shareUrl = encodeURIComponent(window.location.href.split('?')[0]);
   const shareTitle = encodeURIComponent('В чем ты силён? #норникель #стажировка #первыйденьвнорникеле');
   const shareDescription = encodeURIComponent('#норникель #стажировка #первыйденьвнорникеле');
   const shareImage = encodeURIComponent(shareImages[suitableCategory.value]);

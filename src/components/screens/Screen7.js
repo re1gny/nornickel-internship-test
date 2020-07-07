@@ -25,7 +25,7 @@ const Image = styled.img`
   transform: translate(-34%, 68%);
 `;
 
-const handWithPhone = process.env.PUBLIC_URL + '/images/hand_with_phone.png';
+const handWithPhone = '/images/hand_with_phone.png';
 
 const dialogText = 'Оформление документов прошло быстро, \n' +
   'осталось полчаса свободного времени \n' +
