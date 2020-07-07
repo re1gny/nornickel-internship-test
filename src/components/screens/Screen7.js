@@ -8,11 +8,10 @@ const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
   height: 100%;
   width: 100%;
-  padding: 40px 30px 80px 30px;
+  padding: 10px 30px 20px 30px;
   overflow: hidden;
 `;
 
@@ -20,9 +19,9 @@ const Image = styled.img`
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 344px;
+  width: 660px;
   z-index: 3;
-  transform: translate(-34%, 68%);
+  transform: translate(-62%, 66%);
 `;
 
 const handWithPhone = process.env.PUBLIC_URL + '/static/images/hand_with_phone.png';
