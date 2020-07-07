@@ -7,9 +7,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100%;
   width: 100%;
-  padding: 30% 30px 20px 30px;
+  padding: 10px 30px 20px 30px;
 `;
 
 const HeaderText = styled.div`

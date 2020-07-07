@@ -9,26 +9,23 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 10px 30px 20px 30px;
+  padding: 98px 30px 20px 30px;
   overflow: hidden;
 `;
 
 const Image = styled.img`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 660px;
+  width: 100%;
+  transform: translate(-30px, 20px);
   z-index: 3;
-  transform: translate(-62%, 66%);
 `;
 
 const handWithPhone = process.env.PUBLIC_URL + '/static/images/hand_with_phone.png';
 
-const dialogText = 'Оформление документов прошло быстро, \n' +
-  'осталось полчаса свободного времени \n' +
-  'до начала инструктажа, чем займешься?';
+const dialogText = 'Во время инструктажа по пожарной \n' +
+  'безопасности тебе внезапно звонит \n' +
+  'куратор. Что будешь делать?';
 
 const answers = [
   {

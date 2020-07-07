@@ -8,11 +8,7 @@ const Wrapper = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  padding: 20% 30px 20px 30px;
-`;
-
-const DialogBoxStyled = styled(DialogBox)`
-  margin-top: 12px;
+  padding: calc(20% + 88px) 30px 20px 30px;
 `;
 
 const dialogText = 'Внезапно у руководителя зазвонил \n' +
@@ -33,7 +29,7 @@ export const Screen10 = () => {
 
   return (
     <Wrapper onClick={handleClick}>
-      <DialogBoxStyled text={dialogText} arrows={true} />
+      <DialogBox text={dialogText} arrows={true} />
     </Wrapper>
   );
 };

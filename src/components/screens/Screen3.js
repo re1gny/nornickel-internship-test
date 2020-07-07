@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  padding: 10px 30px 40px 30px;
+  padding: 98px 30px 40px 30px;
 `;
 
 const dialogText = 'Только вот незадача, наклейки \n' +

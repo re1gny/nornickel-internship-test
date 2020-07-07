@@ -9,9 +9,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 10px 30px 20px 30px;
+  padding: 98px 30px 20px 30px;
   overflow: hidden;
 `;
 

@@ -1,12 +1,23 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled, {css} from 'styled-components'
 import {preloadImage} from "../utils/preloadImage";
 import {Clock} from "./Clock";
+import {getScrollbarWidth} from "../utils/getScrollbarWidth";
 
 const Wrapper = styled.div`
   position: relative;
-  width: 326px;
+  
+  @media only screen and (max-width: 767px) {
+    height: 100%;
+  }
+`;
+
+const ScreenContentWrapper = styled.div`
+  position: relative;
+  width: ${({ scrollbarWidth }) => `calc(326px + ${scrollbarWidth}px)`};
   height: 700px;
+  margin-right: ${({ scrollbarWidth }) => `-${scrollbarWidth}px`};
+  overflow-y: scroll;
   ${({background, backgroundType}) =>
     backgroundType === 'image' ? 
     css`
@@ -21,6 +32,7 @@ const Wrapper = styled.div`
   @media only screen and (max-width: 767px) {
     width: 100%;
     height: 100%;
+    margin-right: 0;
   }
 `;
 
@@ -33,14 +45,9 @@ const ClockStyled = styled(Clock)`
 `;
 
 const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  padding-top: 88px;
+  min-height: 100%;
+  height: 1px;
 `;
 
 const iPhoneMockup = process.env.PUBLIC_URL + '/static/images/iPhone_mockup.png';
@@ -61,20 +68,34 @@ const IPhoneMockupWrapper = styled.div`
   }
 `;
 
-export const ScreenWrapper = ({background, backgroundType, preloadImages, clock, children}) => {
+export const ScreenWrapper = React.forwardRef((props, ref) => {
+  const { background, backgroundType, preloadImages, clock, children } = props;
+
+  const [scrollbarWidth, setScrollbarWidth] = useState(0);
 
   useEffect(() => {
     const clears = preloadImages && preloadImages.map(img => preloadImage(img));
     return () => clears && clears.forEach(clear => clear());
   }, [preloadImages]);
 
+  useEffect(() => {
+    setScrollbarWidth(getScrollbarWidth());
+  }, []);
+
   return (
-    <Wrapper background={background} backgroundType={backgroundType}>
+    <Wrapper>
       <IPhoneMockupWrapper />
-      <ContentWrapper>
-        {clock && <ClockStyled time={clock}/>}
-        {children}
-      </ContentWrapper>
+      <ScreenContentWrapper
+        ref={ref}
+        scrollbarWidth={scrollbarWidth}
+        background={background}
+        backgroundType={backgroundType}
+      >
+        <ContentWrapper>
+          {clock && <ClockStyled time={clock}/>}
+          {children}
+        </ContentWrapper>
+      </ScreenContentWrapper>
     </Wrapper>
   );
-};
+});

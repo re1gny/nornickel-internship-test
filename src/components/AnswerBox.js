@@ -17,7 +17,7 @@ const Text = styled.div`
 
 const LabelWrapper = styled.div`
   position: absolute;
-  width: 100px;
+  width: 90px;
   top: 50%;
   right: 0;
   transform: translate(calc(100% + 6px), -50%);

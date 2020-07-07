@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  padding: 20% 30px 20px 30px;
+  padding: calc(20% + 88px) 30px 20px 30px;
 `;
 
 const DialogBoxStyled = styled(DialogBox)`

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components'
 import { ScreenWrapper } from './ScreenWrapper';
 import { screens } from '../screens.config';
@@ -26,6 +26,11 @@ function App() {
 
   const [stepNumber, setStepNumber] = useState((queryStep && +queryStep - 1) || 0);
   const [points, setPoints] = useState(DEFAULT_POINTS);
+  const contentWrapper = useRef();
+
+  useEffect(() => {
+    contentWrapper.current && contentWrapper.current.scrollTo(0, 0);
+  }, [stepNumber]);
 
   const setNext = () => {
     setStepNumber(step => step + 1);
@@ -41,7 +46,7 @@ function App() {
   return (
     <AppWrapper>
       <ProgressProvider value={{ stepNumber, points, setNext, addPoints }}>
-        <ScreenWrapper {...screen}>
+        <ScreenWrapper ref={contentWrapper} {...screen}>
           <InnerComponent />
         </ScreenWrapper>
       </ProgressProvider>

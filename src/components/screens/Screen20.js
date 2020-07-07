@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   align-items: flex-end;
   height: 100%;
   width: 100%;
-  padding: 20px 30px 36% 30px;
+  padding: 108px 30px 36% 30px;
   overflow: hidden;
 `;
 
