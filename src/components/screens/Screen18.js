@@ -28,7 +28,7 @@ const Image = styled.img`
   transform: translate(10%, 38%);
 `;
 
-const person1 = '/images/person_1.png';
+const person1 = process.env.PUBLIC_URL + '/images/person_1.png';
 
 const dialogText = 'Презентация прошла успешно,\n' +
   'коллеги благодарят за проделанную\n' +
