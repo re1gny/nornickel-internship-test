@@ -37,10 +37,10 @@ const internshipLink = 'https://www.nornickel.ru/careers/why-nornickel';
 
 const vkIcon = process.env.PUBLIC_URL + '/static/images/vk_icon.png';
 
-const copper = '/static/images/copper.png';
-const platinum = '/static/images/platinum.png';
-const palladium = '/static/images/palladium.png';
-const cobalt = '/static/images/cobalt.png';
+const copper = '/static/images/copper.jpg';
+const platinum = '/static/images/platinum.jpg';
+const palladium = '/static/images/palladium.jpg';
+const cobalt = '/static/images/cobalt.jpg';
 
 const shareImages = { copper, platinum, palladium, cobalt };
 
