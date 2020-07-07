@@ -5,8 +5,8 @@ import {Clock} from "./Clock";
 
 const Wrapper = styled.div`
   position: relative;
-  width: 360px;
-  height: 720px;
+  width: 326px;
+  height: 700px;
   ${({background, backgroundType}) =>
     backgroundType === 'image' ? 
     css`
@@ -17,11 +17,16 @@ const Wrapper = styled.div`
       background-color: ${background};
     `
   };
+  
+  @media only screen and (max-width: 767px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const ClockStyled = styled(Clock)`
   position: absolute;
-  top: 10px;
+  top: 18px;
   left: 20px;
   width: 70px;
   height: 70px;
@@ -35,19 +40,25 @@ const ContentWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  padding-top: 80px;
+  padding-top: 88px;
 `;
 
 const iPhoneMockup = process.env.PUBLIC_URL + '/static/images/iPhone_mockup.png';
 
 const IPhoneMockupWrapper = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: -34px;
+  left: -34px;
+  width: calc(100% + 68px);
+  height: calc(100% + 68px);
   background-size: cover;
   background-image: url(${iPhoneMockup});
+  z-index: 1000;
+  pointer-events: none;
+  
+  @media only screen and (max-width: 767px) {
+    display: none;
+  }
 `;
 
 export const ScreenWrapper = ({background, backgroundType, preloadImages, clock, children}) => {
@@ -59,7 +70,7 @@ export const ScreenWrapper = ({background, backgroundType, preloadImages, clock,
 
   return (
     <Wrapper background={background} backgroundType={backgroundType}>
-      {/*<IPhoneMockupWrapper/>*/}
+      <IPhoneMockupWrapper />
       <ContentWrapper>
         {clock && <ClockStyled time={clock}/>}
         {children}
