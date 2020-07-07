@@ -84,7 +84,7 @@ export const Screen21 = () => {
   const shareUrl = encodeURIComponent(window.location.origin);
   const shareTitle = encodeURIComponent('В чем ты силён? #норникель #стажировка #первыйденьвнорникеле');
   const shareDescription = encodeURIComponent('#норникель #стажировка #первыйденьвнорникеле');
-  const shareImage = encodeURIComponent(window.location.origin + shareImages[suitableCategory.value]);
+  const shareImage = encodeURIComponent(shareImages[suitableCategory.value]);
 
   return (
     <Wrapper>
