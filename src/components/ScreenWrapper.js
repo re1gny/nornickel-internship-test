@@ -41,7 +41,8 @@ const IPhoneMockupWrapper = styled.div`
 export const ScreenWrapper = ({background, backgroundType, preloadImages, children}) => {
 
   useEffect(() => {
-    preloadImages && preloadImages.forEach(preloadImage);
+    const clears = preloadImages && preloadImages.map(img => preloadImage(img));
+    return () => clears && clears.forEach(clear => clear());
   }, [preloadImages]);
 
   return (

@@ -82,14 +82,19 @@ export const Screen21 = () => {
   const suitableCategoryId = Object.keys(points).find(key => points[key] === maxPointsValue);
   const suitableCategory = categories[suitableCategoryId];
 
-  const url = [window.location.protocol, '//', window.location.host, window.location.pathname]
-    .join('')
-    .replace(/\/$/, '');
+  const url = [window.location.protocol, '//', window.location.host, window.location.pathname].join('');
+  const urlWithoutTrailingSlash = url.replace(/\/*$/, '');
 
-  const shareUrl = encodeURIComponent(url);
-  const shareTitle = encodeURIComponent('В чем ты силён? #норникель #стажировка #первыйденьвнорникеле');
-  const shareDescription = encodeURIComponent('#норникель #стажировка #первыйденьвнорникеле');
-  const shareImage = encodeURIComponent(url + shareImages[suitableCategory.value]);
+  const shareTitle = 'В чем ты силён? #норникель #стажировка #первыйденьвнорникеле';
+  const shareDescription = '#норникель #стажировка #первыйденьвнорникеле';
+  const shareImage = urlWithoutTrailingSlash + shareImages[suitableCategory.value];
+
+  const queryParams = new URLSearchParams();
+
+  queryParams.append('url', url);
+  queryParams.append('title', shareTitle);
+  queryParams.append('description', shareDescription);
+  queryParams.append('image', shareImage);
 
   return (
     <Wrapper>
@@ -98,7 +103,7 @@ export const Screen21 = () => {
         <DialogBoxStyled text={<ReactMarkdown source={suitableCategory.description} linkTarget={'_blank'} />} />
         <DialogBoxStyled text={<ReactMarkdown source={suitableCategory.subdescription} linkTarget={'_blank'} />} />
       </DialogBoxWrapper>
-      <a href={`http://vk.com/share.php?url=${shareUrl}&title=${shareTitle}&description=${shareDescription}&image=${shareImage}`}>
+      <a href={`http://vk.com/share.php?${queryParams.toString()}`}>
         <Image src={vkIcon} />
       </a>
     </Wrapper>
