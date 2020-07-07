@@ -26,7 +26,7 @@ const ContentWrapper = styled.div`
   height: 100%;
 `;
 
-const iPhoneMockup = process.env.PUBLIC_URL + '/images/iPhone_mockup.png';
+const iPhoneMockup = process.env.PUBLIC_URL + '/static/images/iPhone_mockup.png';
 
 const IPhoneMockupWrapper = styled.div`
   position: absolute;

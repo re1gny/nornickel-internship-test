@@ -33,7 +33,7 @@ const LabelStyled = styled.span`
   font-size: 14px;
 `;
 
-const person1 = process.env.PUBLIC_URL + '/images/person_1.png';
+const person1 = process.env.PUBLIC_URL + '/static/images/person_1.png';
 
 const dialogText = 'Ура! Первый день стажировки \n' +
   'в Норникеле успешно завершен.';

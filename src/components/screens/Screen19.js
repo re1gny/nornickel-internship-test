@@ -22,7 +22,7 @@ const Image = styled.img`
   width: 164px;
 `;
 
-const person2 = process.env.PUBLIC_URL + '/images/person_2.png';
+const person2 = process.env.PUBLIC_URL + '/static/images/person_2.png';
 
 const dialogText = 'Куратор раздумывает, как твои умения \n' +
   'применить максимально эффективно. \n' +

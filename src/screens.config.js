@@ -20,18 +20,18 @@ import { Screen19 } from './components/screens/Screen19';
 import { Screen20 } from './components/screens/Screen20';
 import { Screen21 } from './components/screens/Screen21';
 
-const background1 = process.env.PUBLIC_URL + '/images/background_1.png';
-const background2 = process.env.PUBLIC_URL + '/images/background_2.png';
-const background3 = process.env.PUBLIC_URL + '/images/background_3.png';
-const background4 = process.env.PUBLIC_URL + '/images/background_4.png';
-const background5 = process.env.PUBLIC_URL + '/images/background_5.png';
-const background6 = process.env.PUBLIC_URL + '/images/background_6.png';
-const background7 = process.env.PUBLIC_URL + '/images/background_7.png';
+const background1 = process.env.PUBLIC_URL + '/static/images/background_1.png';
+const background2 = process.env.PUBLIC_URL + '/static/images/background_2.png';
+const background3 = process.env.PUBLIC_URL + '/static/images/background_3.png';
+const background4 = process.env.PUBLIC_URL + '/static/images/background_4.png';
+const background5 = process.env.PUBLIC_URL + '/static/images/background_5.png';
+const background6 = process.env.PUBLIC_URL + '/static/images/background_6.png';
+const background7 = process.env.PUBLIC_URL + '/static/images/background_7.png';
 
-const person1 = process.env.PUBLIC_URL + '/images/person_1.png';
-const person2 = process.env.PUBLIC_URL + '/images/person_2.png';
-const handWithPhone = process.env.PUBLIC_URL + '/images/hand_with_phone.png';
-const vkIcon = process.env.PUBLIC_URL + '/images/vk_icon.png';
+const person1 = process.env.PUBLIC_URL + '/static/images/person_1.png';
+const person2 = process.env.PUBLIC_URL + '/static/images/person_2.png';
+const handWithPhone = process.env.PUBLIC_URL + '/static/images/hand_with_phone.png';
+const vkIcon = process.env.PUBLIC_URL + '/static/images/vk_icon.png';
 
 export const screens = [
   {
