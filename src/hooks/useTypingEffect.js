@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import { createTypingEffect, getInputSpeed } from "../utils/createTypingEffect";
+import { createTypingEffect, defaultInputSpeed } from "../utils/createTypingEffect";
 
 export const useTypingEffect = ({ onStep, onComplete }) => {
   const [typedText, setTypedText] = useState('');
@@ -13,7 +13,7 @@ export const useTypingEffect = ({ onStep, onComplete }) => {
     onStep && onStep(text);
   };
 
-  const startTyping = (text) => createTypingEffect(text, getInputSpeed(text), handleStep, onComplete);
+  const startTyping = (text) => createTypingEffect(text, defaultInputSpeed, handleStep, onComplete);
 
   return [typedText, startTyping];
 };
