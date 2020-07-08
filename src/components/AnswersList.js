@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { AnswerBox } from './AnswerBox';
 import { useTypingEffect } from "../hooks/useTypingEffect";
@@ -54,7 +54,7 @@ export const AnswersList = (props) => {
   const isBottomLabelShown = isLabelShown && labelPosition === 'bottom';
   const isBottomRightLabelShown = isLabelShown && labelPosition === 'bottom-right';
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (active) startTypingEffect(active.label);
   }, [active]);
 
