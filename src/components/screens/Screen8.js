@@ -36,7 +36,7 @@ export const Screen8 = () => {
 
   return (
     <Wrapper onClick={handleClick}>
-      <DialogBoxStyled text={dialogText} arrows={true} />
+      <DialogBoxStyled text={dialogText} />
     </Wrapper>
   );
 };

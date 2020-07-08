@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   align-items: flex-end;
   height: 100%;
   width: 100%;
-  padding: 108px 30px 24% 30px;
+  padding: 108px 30px 34% 30px;
 `;
 
 const DialogBoxStyled = styled(DialogBox)`
@@ -34,7 +34,7 @@ export const Screen2 = () => {
 
   return (
     <Wrapper onClick={handleClick}>
-      <DialogBoxStyled text={dialogText} arrows={true} />
+      <DialogBoxStyled text={dialogText} />
     </Wrapper>
   );
 };

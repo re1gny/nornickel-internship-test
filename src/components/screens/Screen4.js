@@ -35,7 +35,7 @@ const dialogText = 'Выпив кофе, ты встретился \n' +
   'книгу нового сотрудника и сообщил, \n' +
   'что нужно оформить документы \n' +
   'и пройти инструктаж для начала \n' +
-  'работы. Далее сосоится встреча \n' +
+  'работы. Далее состоится встреча \n' +
   'с куратором стажировки \n' +
   'и знакомство с коллегами.';
 
@@ -50,7 +50,7 @@ export const Screen4 = () => {
 
   return (
     <Wrapper onClick={handleClick}>
-      <DialogBoxStyled text={dialogText} arrows={true} padding={'16px 88px 16px 20px'} />
+      <DialogBoxStyled text={dialogText} padding={'16px 88px 16px 20px'} />
       <Image src={person1} />
     </Wrapper>
   );

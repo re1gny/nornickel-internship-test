@@ -51,7 +51,7 @@ export const Screen1 = () => {
           в Норникель
         </HeaderTextLarge>
       </HeaderText>
-      <DialogBoxStyled theme={'white'} text={introText} arrows={true} />
+      <DialogBoxStyled theme={'white'} text={introText} />
     </Wrapper>
   );
 };
