@@ -21,10 +21,7 @@ const DEFAULT_POINTS = {
 };
 
 function App() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const queryStep = urlParams.get('step');
-
-  const [stepNumber, setStepNumber] = useState((queryStep && +queryStep - 1) || 0);
+  const [stepNumber, setStepNumber] = useState(0);
   const [points, setPoints] = useState(DEFAULT_POINTS);
   const contentWrapper = useRef();
 
