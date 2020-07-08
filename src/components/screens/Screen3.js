@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components'
 import { ProgressContext } from "../../contexts/ProgressContext";
 import { QuestionDialog } from "../QuestionDialog";
-import {afterAnswerDelay} from "../../constants";
+import { afterAnswerDelay } from "../../constants";
 
 const Wrapper = styled.div`
   display: flex;
@@ -49,12 +49,17 @@ const answers = [
   },
 ];
 
-export const Screen3 = () => {
+export const Screen3 = ({ contentWrapper }) => {
   const { setNext, addPoints } = useContext(ProgressContext);
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
-    setTimeout(setNext, afterAnswerDelay);
+    const contentEl = contentWrapper.current;
+    contentEl && contentEl.scrollTo({ top: contentEl.scrollHeight, behavior: "smooth" });
+  };
+
+  const handleComplete = () => {
+    setTimeout(setNext, afterAnswerDelay)
   };
 
   return (
@@ -64,6 +69,7 @@ export const Screen3 = () => {
         dialogText={dialogText}
         labelPosition={'right'}
         onSelect={handleSelect}
+        onComplete={handleComplete}
       />
     </Wrapper>
   );

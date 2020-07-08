@@ -101,21 +101,26 @@ const hints = [
   },
 ];
 
-export const Screen11 = () => {
+export const Screen11 = ({ contentWrapper }) => {
   const { setNext, addPoints } = useContext(ProgressContext);
   const [labelPosition, setLabelPosition] = useState('right');
   const [answers, setAnswers] = useState(DEFAULT_ANSWERS);
+  const [finishCallback, setFinishCallback] = useState(null);
 
   const handleLose = () => {
+    setFinishCallback(() => () => setTimeout(setNext, afterAnswerDelay));
     setAnswers(answers => [...answers.map(answer => ({ ...answer, label: LOSE_LABEL }))]);
     setLabelPosition('bottom-right');
-    setTimeout(setNext, afterAnswerDelay);
   };
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
-    if (answer.pointsTo.length) setTimeout(setNext, afterAnswerDelay);
-    else setTimeout(handleLose, afterAnswerDelay);
+
+    const contentEl = contentWrapper.current;
+    contentEl && contentEl.scrollTo({ top: contentEl.scrollHeight, behavior: "smooth" });
+
+    if (answer.pointsTo.length) setFinishCallback(() => () => setTimeout(setNext, afterAnswerDelay));
+    else setFinishCallback(() => () => setTimeout(handleLose, afterAnswerDelay));
   };
 
   const HintBanner = (
@@ -139,6 +144,7 @@ export const Screen11 = () => {
         labelPosition={labelPosition}
         middleContent={HintBanner}
         onSelect={handleSelect}
+        onComplete={finishCallback}
       />
     </Wrapper>
   );

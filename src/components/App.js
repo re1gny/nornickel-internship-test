@@ -47,7 +47,7 @@ function App() {
     <AppWrapper>
       <ProgressProvider value={{ stepNumber, points, setNext, addPoints }}>
         <ScreenWrapper ref={contentWrapper} {...screen}>
-          <InnerComponent />
+          <InnerComponent contentWrapper={contentWrapper} />
         </ScreenWrapper>
       </ProgressProvider>
     </AppWrapper>

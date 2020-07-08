@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import styled from 'styled-components'
 import { ProgressContext } from "../../contexts/ProgressContext";
 import { QuestionDialog } from "../QuestionDialog";
-import { afterAnswerSimpleDelay } from "../../constants";
+import { afterAnswerDelay } from "../../constants";
 
 const Wrapper = styled.div`
   position: relative;
@@ -59,7 +59,7 @@ export const Screen7 = () => {
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
-    setTimeout(setNext, afterAnswerSimpleDelay);
+    setTimeout(setNext, afterAnswerDelay);
   };
 
   return (
