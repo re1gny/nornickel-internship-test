@@ -108,7 +108,7 @@ export const Screen11 = ({ contentWrapper }) => {
   const [finishCallback, setFinishCallback] = useState(null);
 
   const handleLose = () => {
-    setFinishCallback(() => () => setTimeout(setNext, afterAnswerDelay));
+    setFinishCallback(() => () => setTimeout(setNext, afterAnswerDelay + 500));
     setAnswers(answers => [...answers.map(answer => ({ ...answer, label: LOSE_LABEL }))]);
     setLabelPosition('bottom-right');
   };
