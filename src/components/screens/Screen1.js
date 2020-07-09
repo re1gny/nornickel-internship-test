@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   padding: 10px 30px 20px 30px;
 `;
@@ -44,7 +44,7 @@ export const Screen1 = () => {
         <br/>
         все вступительные
         <br/>
-        испытания и попал
+        испытания и принят
         <HeaderTextLarge>
           на стажировку
           <br/>

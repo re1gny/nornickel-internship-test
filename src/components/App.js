@@ -11,6 +11,11 @@ const AppWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  padding: 30px;
+  
+  @media only screen and (max-width: 767px) {
+    padding: 0;
+  }
 `;
 
 const DEFAULT_POINTS = {

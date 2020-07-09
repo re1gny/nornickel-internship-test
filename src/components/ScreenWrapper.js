@@ -1,21 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import styled, {css} from 'styled-components'
+import useComponentSize from '@rehooks/component-size';
 import {preloadImage} from "../utils/preloadImage";
 import {Clock} from "./Clock";
 import {getScrollbarWidth} from "../utils/getScrollbarWidth";
 
 const Wrapper = styled.div`
   position: relative;
+  max-height: 100%;
+  height: 700px;
+  width: ${({ width }) => `calc(${width}px / 1.22)`};
   
   @media only screen and (max-width: 767px) {
     height: 100%;
+    width: 100%;
   }
 `;
 
 const ScreenContentWrapper = styled.div`
   position: relative;
-  width: ${({ scrollbarWidth }) => `calc(326px + ${scrollbarWidth}px)`};
-  height: 700px;
+  width: ${({ scrollbarWidth }) => `calc(100% + ${scrollbarWidth}px)`};
+  height: 100%;
   margin-right: ${({ scrollbarWidth }) => `-${scrollbarWidth}px`};
   overflow-y: scroll;
   ${({background, backgroundType}) =>
@@ -50,16 +55,14 @@ const ContentWrapper = styled.div`
   height: 1px;
 `;
 
-const iPhoneMockup = process.env.PUBLIC_URL + '/static/images/iPhone_mockup.png';
+const iPhoneMockupImage = process.env.PUBLIC_URL + '/static/images/iPhone_mockup.png';
 
-const IPhoneMockupWrapper = styled.div`
+const IPhoneMockupWrapper = styled.img`
+  display: ${({ error }) => error ? 'none' : 'block'};
   position: absolute;
-  top: -34px;
-  left: -34px;
-  width: calc(100% + 68px);
-  height: calc(100% + 68px);
-  background-size: cover;
-  background-image: url(${iPhoneMockup});
+  top: -5%;
+  left: -11%;
+  height: 110%;
   z-index: 1000;
   pointer-events: none;
   
@@ -70,17 +73,44 @@ const IPhoneMockupWrapper = styled.div`
 
 const scrollbarWidth = getScrollbarWidth();
 
+const DEFAULT_WRAPPER_WIDTH = 326 * 1.22;
+
 export const ScreenWrapper = React.forwardRef((props, ref) => {
   const { background, backgroundType, preloadImages, clock, children } = props;
+
+  const [mockupLoadingError, setMockupLoadingError] = useState(false);
+
+  const [wrapperWidth, setWrapperWidth] = useState(0);
+  const iPhoneMockup = useRef();
+  const { width: iPhoneMockupWidth } = useComponentSize(iPhoneMockup);
+
+  useLayoutEffect(() => {
+    if (mockupLoadingError) setWrapperWidth(DEFAULT_WRAPPER_WIDTH);
+    else setWrapperWidth(iPhoneMockupWidth);
+  }, [mockupLoadingError, iPhoneMockupWidth]);
 
   useEffect(() => {
     const clears = preloadImages && preloadImages.map(img => preloadImage(img));
     return () => clears && clears.forEach(clear => clear());
   }, [preloadImages]);
 
+  const handleMockupError = () => {
+    setMockupLoadingError(true);
+  };
+
+  const handleMockupLoad = () => {
+    setMockupLoadingError(false);
+  };
+
   return (
-    <Wrapper>
-      <IPhoneMockupWrapper />
+    <Wrapper width={wrapperWidth}>
+      <IPhoneMockupWrapper
+        ref={iPhoneMockup}
+        src={iPhoneMockupImage}
+        error={mockupLoadingError}
+        onLoad={handleMockupLoad}
+        onError={handleMockupError}
+      />
       <ScreenContentWrapper
         ref={ref}
         scrollbarWidth={scrollbarWidth}

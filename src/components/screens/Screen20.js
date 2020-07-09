@@ -54,7 +54,7 @@ export const Screen20 = () => {
       <DialogBoxStyled
         text={dialogText}
         label={Label}
-        padding={'16px 42px 16px 20px'}
+        padding={'16px 46px 16px 20px'}
       />
       <Image src={person1} />
     </Wrapper>

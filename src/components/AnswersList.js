@@ -27,7 +27,7 @@ const BottomRightLabelWrapper = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 88px;
+  width: 28%;
 `;
 
 const Label = styled.div`

@@ -47,7 +47,7 @@ export const Screen6 = () => {
 
   return (
     <Wrapper onClick={handleClick}>
-      <DialogBoxStyled text={dialogText} padding={'16px 82px 16px 20px'} />
+      <DialogBoxStyled text={dialogText} padding={'16px 94px 16px 20px'} />
       <Image src={person1} />
     </Wrapper>
   );

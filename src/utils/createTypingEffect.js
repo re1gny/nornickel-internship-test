@@ -16,7 +16,7 @@ export const createTypingEffect = (() => {
   return type;
 })();
 
-export const defaultInputSpeed = 60;
+export const defaultInputSpeed = 40;
 export const inputAnimationDuration = 2000;
 export const minDataLengthForDefaultSpeed = 30;
 
