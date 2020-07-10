@@ -19,6 +19,7 @@ const Image = styled.img`
   width: 100%;
   transform: translate(-30px, 20px);
   z-index: 3;
+  pointer-events: none;
 `;
 
 const handWithPhone = process.env.PUBLIC_URL + '/static/images/hand_with_phone.png';

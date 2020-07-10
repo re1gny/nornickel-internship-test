@@ -55,7 +55,7 @@ const DEFAULT_ANSWERS = [
   {
     value: '086',
     text: '086',
-    label: 'Неверно, попробуй другой код',
+    label: 'Этот пароль неверный',
     pointsTo: [],
   },
   {
@@ -67,13 +67,13 @@ const DEFAULT_ANSWERS = [
   {
     value: '042',
     text: '042',
-    label: 'Не получилось, попробуй ещё раз',
+    label: 'Этот пароль неверный',
     pointsTo: [],
   },
   {
     value: '126',
     text: '126',
-    label: 'Не сработало, попробуй другой вариант',
+    label: 'Этот пароль неверный',
     pointsTo: [],
   },
 ];

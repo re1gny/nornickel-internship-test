@@ -18,6 +18,7 @@ const Wrapper = styled.div`
 const Image = styled.img`
   width: 100%;
   transform: translate(-30px, 20px);
+  pointer-events: none;
 `;
 
 const person2 = process.env.PUBLIC_URL + '/static/images/person_2.png';
