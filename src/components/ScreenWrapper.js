@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   position: relative;
   max-height: 100%;
   height: 700px;
-  width: ${({ width }) => `calc(${width}px / 1.22)`};
+  width: ${({ width }) => width}px;
   
   @media only screen and (max-width: 767px) {
     height: 100%;
@@ -58,7 +58,7 @@ const ContentWrapper = styled.div`
 const iPhoneMockupImage = process.env.PUBLIC_URL + '/static/images/iPhone_mockup.png';
 
 const IPhoneMockupWrapper = styled.img`
-  display: ${({ error }) => error ? 'none' : 'block'};
+  display: ${({ loaded }) => loaded ? 'block' : 'none'};
   position: absolute;
   top: -5%;
   left: -11%;
@@ -73,33 +73,29 @@ const IPhoneMockupWrapper = styled.img`
 
 const scrollbarWidth = getScrollbarWidth();
 
-const DEFAULT_WRAPPER_WIDTH = 326 * 1.22;
+const DEFAULT_WRAPPER_WIDTH = 326;
+const WIDTH_SCALE_COEFFICIENT = 1.22;
 
 export const ScreenWrapper = React.forwardRef((props, ref) => {
   const { background, backgroundType, preloadImages, clock, children } = props;
 
-  const [mockupLoadingError, setMockupLoadingError] = useState(false);
-
-  const [wrapperWidth, setWrapperWidth] = useState(0);
+  const [mockupLoaded, setMockupLoaded] = useState(false);
+  const [wrapperWidth, setWrapperWidth] = useState(DEFAULT_WRAPPER_WIDTH);
   const iPhoneMockup = useRef();
   const { width: iPhoneMockupWidth } = useComponentSize(iPhoneMockup);
 
   useLayoutEffect(() => {
-    if (mockupLoadingError) setWrapperWidth(DEFAULT_WRAPPER_WIDTH);
-    else setWrapperWidth(iPhoneMockupWidth);
-  }, [mockupLoadingError, iPhoneMockupWidth]);
+    if (mockupLoaded && iPhoneMockupWidth) setWrapperWidth(iPhoneMockupWidth / WIDTH_SCALE_COEFFICIENT);
+    else setWrapperWidth(DEFAULT_WRAPPER_WIDTH);
+  }, [mockupLoaded, iPhoneMockupWidth]);
 
   useEffect(() => {
     const clears = preloadImages && preloadImages.map(img => preloadImage(img));
     return () => clears && clears.forEach(clear => clear());
   }, [preloadImages]);
 
-  const handleMockupError = () => {
-    setMockupLoadingError(true);
-  };
-
   const handleMockupLoad = () => {
-    setMockupLoadingError(false);
+    setMockupLoaded(true);
   };
 
   return (
@@ -107,9 +103,8 @@ export const ScreenWrapper = React.forwardRef((props, ref) => {
       <IPhoneMockupWrapper
         ref={iPhoneMockup}
         src={iPhoneMockupImage}
-        error={mockupLoadingError}
+        loaded={mockupLoaded}
         onLoad={handleMockupLoad}
-        onError={handleMockupError}
       />
       <ScreenContentWrapper
         ref={ref}
