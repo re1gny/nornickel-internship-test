@@ -10,9 +10,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 20px 30px;
+  padding: 50px 30px 20px 30px;
   overflow: hidden;
 `;
 
@@ -35,11 +35,12 @@ const Image = styled.img`
 
 const internshipLink = 'https://www.nornickel.ru/careers/why-nornickel';
 
-const vkIcon = process.env.PUBLIC_URL + '/images/vk_icon.png';
-const copper = process.env.PUBLIC_URL + '/images/copper.png';
-const platinum = process.env.PUBLIC_URL + '/images/platinum.png';
-const palladium = process.env.PUBLIC_URL + '/images/palladium.png';
-const cobalt = process.env.PUBLIC_URL + '/images/cobalt.png';
+const vkIcon = process.env.PUBLIC_URL + '/static/images/vk_icon.png';
+
+const copper = '/static/images/copper.jpg';
+const platinum = '/static/images/platinum.jpg';
+const palladium = '/static/images/palladium.jpg';
+const cobalt = '/static/images/cobalt.jpg';
 
 const shareImages = { copper, platinum, palladium, cobalt };
 
@@ -81,10 +82,19 @@ export const Screen21 = () => {
   const suitableCategoryId = Object.keys(points).find(key => points[key] === maxPointsValue);
   const suitableCategory = categories[suitableCategoryId];
 
-  const shareUrl = encodeURIComponent(window.location.origin);
-  const shareTitle = encodeURIComponent('В чем ты силён? #норникель #стажировка #первыйденьвнорникеле');
-  const shareDescription = encodeURIComponent('#норникель #стажировка #первыйденьвнорникеле');
-  const shareImage = encodeURIComponent(window.location.origin + shareImages[suitableCategory.value]);
+  const url = [window.location.protocol, '//', window.location.host, window.location.pathname].join('');
+  const urlWithoutTrailingSlash = url.replace(/\/*$/, '');
+
+  const shareTitle = 'В чем ты силён? #норникель #стажировка #первыйденьвнорникеле';
+  const shareDescription = '#норникель #стажировка #первыйденьвнорникеле';
+  const shareImage = urlWithoutTrailingSlash + shareImages[suitableCategory.value];
+
+  const queryParams = new URLSearchParams();
+
+  queryParams.append('url', url);
+  queryParams.append('title', shareTitle);
+  queryParams.append('description', shareDescription);
+  queryParams.append('image', shareImage);
 
   return (
     <Wrapper>
@@ -93,7 +103,7 @@ export const Screen21 = () => {
         <DialogBoxStyled text={<ReactMarkdown source={suitableCategory.description} linkTarget={'_blank'} />} />
         <DialogBoxStyled text={<ReactMarkdown source={suitableCategory.subdescription} linkTarget={'_blank'} />} />
       </DialogBoxWrapper>
-      <a href={`http://vk.com/share.php?url=${shareUrl}&title=${shareTitle}&description=${shareDescription}&image=${shareImage}`}>
+      <a href={`http://vk.com/share.php?${queryParams.toString()}`}>
         <Image src={vkIcon} />
       </a>
     </Wrapper>

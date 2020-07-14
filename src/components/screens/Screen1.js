@@ -2,15 +2,16 @@ import React, {useContext} from 'react';
 import styled from 'styled-components'
 import {DialogBox} from "../DialogBox";
 import {ProgressContext} from "../../contexts/ProgressContext";
+import {Button} from "../Button";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100%;
+  justify-content: center;
+  min-height: 100%;
   width: 100%;
-  padding: 20px 30px;
+  padding: 10px 30px 20px 30px;
 `;
 
 const HeaderText = styled.div`
@@ -29,29 +30,35 @@ const DialogBoxStyled = styled(DialogBox)`
   margin-top: 12px;
 `;
 
-const introText = 'Сегодня твой первый день стажировки. \n' +
-  'Нужно проявить себя с лучшей стороны, \n' +
-  'справиться со всеми задачами \n' +
-  'и не ударить в грязь лицом. Удачи!';
+const ButtonStyled = styled(Button)`
+  margin-top: 12px;
+`;
+
+const introText = 'Сегодня первый день твоей стажировки! \n' +
+  'Говорят, что встречают по одежке. Какое\n' +
+  'ты произведешь впечатление? Отвечай\n' +
+  'на вопросы, решай задачи и в конце дня\n' +
+  'узнаешь ответ на этот вопрос. Удачи!';
 
 export const Screen1 = () => {
   const { setNext } = useContext(ProgressContext);
 
   return (
-    <Wrapper onClick={setNext}>
+    <Wrapper>
       <HeaderText>
         ты успешно прошел
         <br/>
         все вступительные
         <br/>
-        испытания и попал
+        испытания и принят
         <HeaderTextLarge>
           на стажировку
           <br/>
           в Норникель
         </HeaderTextLarge>
       </HeaderText>
-      <DialogBoxStyled theme={'white'} text={introText} arrows={true} />
+      <DialogBoxStyled theme={'white'} text={introText} />
+      <ButtonStyled theme={'light'} onClick={setNext}>Начать</ButtonStyled>
     </Wrapper>
   );
 };

@@ -8,11 +8,10 @@ const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 40px 30px 80px 30px;
+  padding: 98px 30px 60px 30px;
   overflow: hidden;
 `;
 
@@ -61,11 +60,16 @@ const answers = [
   },
 ];
 
-export const Screen9 = () => {
+export const Screen9 = ({ contentWrapper }) => {
   const { setNext, addPoints } = useContext(ProgressContext);
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
+    const contentEl = contentWrapper.current;
+    contentEl && contentEl.scrollTo({ top: contentEl.scrollHeight, behavior: "smooth" });
+  };
+
+  const handleComplete = () => {
     setTimeout(setNext, afterAnswerDelay);
   };
 
@@ -77,6 +81,7 @@ export const Screen9 = () => {
         centerAnswersText={true}
         labelPosition={'bottom'}
         onSelect={handleSelect}
+        onComplete={handleComplete}
       />
     </Wrapper>
   );

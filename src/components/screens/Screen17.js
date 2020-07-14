@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import styled from 'styled-components'
 import { ProgressContext } from "../../contexts/ProgressContext";
 import { QuestionDialog } from "../QuestionDialog";
-import { afterAnswerSimpleDelay } from "../../constants";
+import { afterAnswerDelay } from "../../constants";
 
 const Wrapper = styled.div`
   position: relative;
@@ -10,9 +10,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 20px 30px;
+  padding: 108px 30px 20px 30px;
   overflow: hidden;
 `;
 
@@ -60,7 +60,7 @@ export const Screen17 = () => {
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
-    setTimeout(setNext, afterAnswerSimpleDelay);
+    setTimeout(setNext, afterAnswerDelay);
   };
 
   return (

@@ -21,6 +21,7 @@ export const QuestionDialog = (props) => {
     answersTextSize,
     labelPosition,
     onSelect,
+    onComplete,
     className,
     middleContent,
     dialogArrows,
@@ -52,6 +53,7 @@ export const QuestionDialog = (props) => {
         answersTextSize={answersTextSize}
         labelPosition={labelPosition}
         onSelect={handleSelect}
+        onComplete={onComplete}
       />
     </Wrapper>
   );

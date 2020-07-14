@@ -1,26 +1,30 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components'
 import { ProgressContext } from "../../contexts/ProgressContext";
 import { QuestionDialog } from "../QuestionDialog";
-import {afterAnswerDelay} from "../../constants";
+import { afterAnswerDelay } from "../../constants";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 40px 30px;
+  padding: 98px 30px 40px 30px;
 `;
 
-const dialogText = 'Только вот незадача, наклейки \n' +
-  'на автоматах перепутаны! Первый \n' +
-  'выдает чай, второй кофе, а третий \n' +
-  'случайным образом чай или кофе. \n' +
-  'Сколько нужно потратить денег, \n' +
-  'чтобы выяснить, где какой автомат? \n' +
-  'Стакан любого напитка стоит 30 рублей.';
+const dialogText = 'Ты видишь три автомата: первый выдает \n' +
+  'чай, второй - кофе, а третий радует \n' +
+  'покупателя сюрпризом, случайно наливая \n' +
+  'чай или кофе. Только вот незадача, \n' +
+  'наклейки на автоматах перепутаны! \n' +
+  'Кто-то заботливо подписал около каждого \n' +
+  'автомата "Не" и ты точно знаешь, что все \n' +
+  'названия неправильные. Сколько нужно \n' +
+  'потратить денег, чтобы выяснить, где \n' +
+  'какой автомат? Стакан любого напитка \n' +
+  'стоит 30 рублей.';
 
 const answers = [
   {
@@ -49,12 +53,17 @@ const answers = [
   },
 ];
 
-export const Screen3 = () => {
+export const Screen3 = ({ contentWrapper }) => {
   const { setNext, addPoints } = useContext(ProgressContext);
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
-    setTimeout(setNext, afterAnswerDelay);
+    const contentEl = contentWrapper.current;
+    contentEl && contentEl.scrollTo({ top: contentEl.scrollHeight, behavior: "smooth" });
+  };
+
+  const handleComplete = () => {
+    setTimeout(setNext, afterAnswerDelay)
   };
 
   return (
@@ -64,6 +73,7 @@ export const Screen3 = () => {
         dialogText={dialogText}
         labelPosition={'right'}
         onSelect={handleSelect}
+        onComplete={handleComplete}
       />
     </Wrapper>
   );

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { AnswerBox } from './AnswerBox';
+import { useTypingEffect } from "../hooks/useTypingEffect";
 
 const Wrapper = styled.div`
   position: relative;
@@ -26,7 +27,7 @@ const BottomRightLabelWrapper = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 88px;
+  width: 28%;
 `;
 
 const Label = styled.div`
@@ -35,12 +36,27 @@ const Label = styled.div`
 `;
 
 export const AnswersList = (props) => {
-  const { answers, active, centerAnswersText, answersTextSize, labelPosition = 'right', onSelect, className } = props;
+  const {
+    answers,
+    active,
+    centerAnswersText,
+    answersTextSize,
+    labelPosition = 'right',
+    onSelect,
+    onComplete,
+    className,
+  } = props;
+
+  const [activeLabel, startTypingEffect] = useTypingEffect({ onComplete });
 
   const isLabelShown = active && active.label;
   const isRightLabelShown = isLabelShown && labelPosition === 'right';
   const isBottomLabelShown = isLabelShown && labelPosition === 'bottom';
   const isBottomRightLabelShown = isLabelShown && labelPosition === 'bottom-right';
+
+  useLayoutEffect(() => {
+    if (active) startTypingEffect(active.label);
+  }, [active]);
 
   return (
     <Wrapper className={className}>
@@ -52,18 +68,18 @@ export const AnswersList = (props) => {
             isActive={active && answer.value === active.value}
             center={centerAnswersText}
             textSize={answersTextSize}
-            label={isRightLabelShown && <Label>{active.label}</Label>}
+            label={isRightLabelShown && <Label>{activeLabel}</Label>}
             onSelect={() => onSelect(answer)}
           />
         ))}
         {isBottomLabelShown && (
           <BottomLabelWrapper>
-            <Label>{active.label}</Label>
+            <Label>{activeLabel}</Label>
           </BottomLabelWrapper>
         )}
         {isBottomRightLabelShown && (
           <BottomRightLabelWrapper>
-            <Label>{active.label}</Label>
+            <Label>{activeLabel}</Label>
           </BottomRightLabelWrapper>
         )}
       </div>

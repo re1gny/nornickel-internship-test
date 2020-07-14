@@ -9,11 +9,10 @@ const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 40px 30px;
+  padding: 98px 30px 20px 30px;
   overflow: hidden;
 `;
 
@@ -56,7 +55,7 @@ const DEFAULT_ANSWERS = [
   {
     value: '086',
     text: '086',
-    label: 'Неверно, попробуй другой код',
+    label: 'Этот пароль неверный',
     pointsTo: [],
   },
   {
@@ -68,13 +67,13 @@ const DEFAULT_ANSWERS = [
   {
     value: '042',
     text: '042',
-    label: 'Не получилось, попробуй ещё раз',
+    label: 'Этот пароль неверный',
     pointsTo: [],
   },
   {
     value: '126',
     text: '126',
-    label: 'Не сработало, попробуй другой вариант',
+    label: 'Этот пароль неверный',
     pointsTo: [],
   },
 ];
@@ -102,21 +101,26 @@ const hints = [
   },
 ];
 
-export const Screen11 = () => {
+export const Screen11 = ({ contentWrapper }) => {
   const { setNext, addPoints } = useContext(ProgressContext);
   const [labelPosition, setLabelPosition] = useState('right');
   const [answers, setAnswers] = useState(DEFAULT_ANSWERS);
+  const [finishCallback, setFinishCallback] = useState(null);
 
   const handleLose = () => {
+    setFinishCallback(() => () => setTimeout(setNext, afterAnswerDelay + 500));
     setAnswers(answers => [...answers.map(answer => ({ ...answer, label: LOSE_LABEL }))]);
     setLabelPosition('bottom-right');
-    setTimeout(setNext, afterAnswerDelay);
   };
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
-    if (answer.pointsTo.length) setTimeout(setNext, afterAnswerDelay);
-    else setTimeout(handleLose, afterAnswerDelay);
+
+    const contentEl = contentWrapper.current;
+    contentEl && contentEl.scrollTo({ top: contentEl.scrollHeight, behavior: "smooth" });
+
+    if (answer.pointsTo.length) setFinishCallback(() => () => setTimeout(setNext, afterAnswerDelay));
+    else setFinishCallback(() => () => setTimeout(handleLose, afterAnswerDelay));
   };
 
   const HintBanner = (
@@ -140,6 +144,7 @@ export const Screen11 = () => {
         labelPosition={labelPosition}
         middleContent={HintBanner}
         onSelect={handleSelect}
+        onComplete={finishCallback}
       />
     </Wrapper>
   );

@@ -17,10 +17,11 @@ const Text = styled.div`
 
 const LabelWrapper = styled.div`
   position: absolute;
-  width: 100px;
+  width: 1px;
+  max-width: 100%;
   top: 50%;
   right: 0;
-  transform: translate(calc(100% + 6px), -50%);
+  transform: translate(calc(100% + 12px), -50%);
 `;
 
 export const AnswerBox = (props) => {

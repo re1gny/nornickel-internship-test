@@ -2,16 +2,20 @@ import React, {useContext} from 'react';
 import styled from 'styled-components'
 import {DialogBox} from "../DialogBox";
 import {ProgressContext} from "../../contexts/ProgressContext";
-import {useInactivityDelay} from "../../hooks/useInactivityDelay";
+import {Button} from "../Button";
 
 const Wrapper = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   height: 100%;
   width: 100%;
-  padding: 34% 30px 20px 30px;
+  padding: calc(20% + 88px) 30px 20px 30px;
 `;
 
-const DialogBoxStyled = styled(DialogBox)`
+const ButtonStyled = styled(Button)`
   margin-top: 12px;
 `;
 
@@ -24,16 +28,11 @@ const dialogText = 'Внезапно у руководителя зазвони�
 
 export const Screen10 = () => {
   const { setNext } = useContext(ProgressContext);
-  const stopTimer = useInactivityDelay(setNext);
-
-  const handleClick = () => {
-    stopTimer();
-    setNext();
-  };
 
   return (
-    <Wrapper onClick={handleClick}>
-      <DialogBoxStyled text={dialogText} arrows={true} />
+    <Wrapper>
+      <DialogBox text={dialogText} />
+      <ButtonStyled onClick={setNext}>Далее</ButtonStyled>
     </Wrapper>
   );
 };

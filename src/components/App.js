@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components'
 import { ScreenWrapper } from './ScreenWrapper';
 import { screens } from '../screens.config';
@@ -11,21 +11,28 @@ const AppWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  padding: 30px;
+  
+  @media only screen and (max-width: 767px) {
+    padding: 0;
+  }
 `;
 
 const DEFAULT_POINTS = {
-  A: 1,
+  A: 0,
   B: 0,
   C: 0,
   D: 0,
 };
 
 function App() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const queryStep = urlParams.get('step');
-
-  const [stepNumber, setStepNumber] = useState((queryStep && +queryStep - 1) || 0);
+  const [stepNumber, setStepNumber] = useState(0);
   const [points, setPoints] = useState(DEFAULT_POINTS);
+  const contentWrapper = useRef();
+
+  useEffect(() => {
+    contentWrapper.current && contentWrapper.current.scrollTo(0, 0);
+  }, [stepNumber]);
 
   const setNext = () => {
     setStepNumber(step => step + 1);
@@ -41,8 +48,8 @@ function App() {
   return (
     <AppWrapper>
       <ProgressProvider value={{ stepNumber, points, setNext, addPoints }}>
-        <ScreenWrapper {...screen}>
-          <InnerComponent />
+        <ScreenWrapper ref={contentWrapper} {...screen}>
+          <InnerComponent contentWrapper={contentWrapper} />
         </ScreenWrapper>
       </ProgressProvider>
     </AppWrapper>

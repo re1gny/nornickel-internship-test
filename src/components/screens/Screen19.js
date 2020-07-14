@@ -2,27 +2,26 @@ import React, {useContext} from 'react';
 import styled from 'styled-components'
 import { ProgressContext } from "../../contexts/ProgressContext";
 import { QuestionDialog } from "../QuestionDialog";
-import { afterAnswerSimpleDelay } from "../../constants";
+import { afterAnswerDelay } from "../../constants";
 
 const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 80px 30px 20px 30px;
+  padding: 98px 30px 20px 30px;
   overflow: hidden;
 `;
 
 const Image = styled.img`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 164px;
+  width: 100%;
+  transform: translate(-30px, 20px);
+  pointer-events: none;
 `;
 
-const person2 = process.env.PUBLIC_URL + '/images/person_2.png';
+const person2 = process.env.PUBLIC_URL + '/static/images/person_2.png';
 
 const dialogText = 'Куратор раздумывает, как твои умения \n' +
   'применить максимально эффективно. \n' +
@@ -66,7 +65,7 @@ export const Screen19 = () => {
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
-    setTimeout(setNext, afterAnswerSimpleDelay);
+    setTimeout(setNext, afterAnswerDelay);
   };
 
   return (

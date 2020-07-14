@@ -2,34 +2,31 @@ import React, {useContext} from 'react';
 import styled from 'styled-components'
 import { ProgressContext } from "../../contexts/ProgressContext";
 import { QuestionDialog } from "../QuestionDialog";
-import { afterAnswerSimpleDelay } from "../../constants";
+import { afterAnswerDelay } from "../../constants";
 
 const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  padding: 40px 30px 80px 30px;
+  padding: 98px 30px 20px 30px;
   overflow: hidden;
 `;
 
 const Image = styled.img`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 344px;
+  width: 100%;
+  transform: translate(-30px, 20px);
   z-index: 3;
-  transform: translate(-34%, 68%);
+  pointer-events: none;
 `;
 
-const handWithPhone = process.env.PUBLIC_URL + '/images/hand_with_phone.png';
+const handWithPhone = process.env.PUBLIC_URL + '/static/images/hand_with_phone.png';
 
-const dialogText = 'Оформление документов прошло быстро, \n' +
-  'осталось полчаса свободного времени \n' +
-  'до начала инструктажа, чем займешься?';
+const dialogText = 'Во время инструктажа по пожарной \n' +
+  'безопасности тебе внезапно звонит \n' +
+  'куратор. Что будешь делать?';
 
 const answers = [
   {
@@ -63,7 +60,7 @@ export const Screen7 = () => {
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
-    setTimeout(setNext, afterAnswerSimpleDelay);
+    setTimeout(setNext, afterAnswerDelay);
   };
 
   return (
