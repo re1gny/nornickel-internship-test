@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import styled from 'styled-components';
 import {DialogBox} from "./DialogBox";
 import {AnswersList} from "./AnswersList";
@@ -13,7 +13,7 @@ const AnswersListStyled = styled(AnswersList)`
   margin-top: 16px;
 `;
 
-export const QuestionDialog = (props) => {
+export const QuestionDialog = forwardRef((props, ref) => {
   const {
     answers,
     dialogText,
@@ -36,6 +36,10 @@ export const QuestionDialog = (props) => {
     onSelect(answer);
   };
 
+  useImperativeHandle(ref, () => ({
+    clearActive: () => setActive(false),
+  }), [setActive]);
+
   useEffect(() => {
     const prevActive = { ...active };
     const newActive = answers.find(answer => answer.value === prevActive.value);
@@ -57,4 +61,4 @@ export const QuestionDialog = (props) => {
       />
     </Wrapper>
   );
-};
+});

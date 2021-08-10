@@ -15,54 +15,47 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-const dialogText = 'У руководителя созвон с коллегой. \n' +
-  'Он поручил тебе организовать \n' +
-  'видеоконференцию с 3 департаментами \n' +
-  'и самостоятельно подготовиться \n' +
-  'к звонку. Нужно сообщить каждому\n' +
-  ' сотруднику и пригласить на встречу. \n' +
-  'Твои действия:';
+const dialogText = 'У руководителя созвон с коллегой. Он поручил тебе организовать ' +
+  'видеоконференцию с 3 департаментами и самостоятельно подготовиться к звонку. ' +
+  'Ты все сделал у тебя есть 30 минут свободного времени. Чем займешься?\n';
 
 const answers = [
   {
     value: '1',
-    text: 'Выяснить контакты у секретаря, разослать \n' +
-      'сообщения на почту',
-    label: null,
+    text: 'Проверю соц. сети',
+    label: 'Полагаем, есть более полезное времяпрепровождение',
     pointsTo: ['D'],
   },
   {
     value: '2',
-    text: 'Выяснить контакты у секретаря, позвонить \n' +
-      'каждому коллеге и убедиться, что он может \n' +
-      'присутствовать ',
-    label: null,
+    text: 'Пойду в столовую и изучу меню',
+    label: 'Обед уже скоро, потерпи немного',
     pointsTo: ['C'],
   },
   {
     value: '3',
-    text: 'Спросить у куратора контакты коллег, \n' +
-      'подготовить черновик письма и отправить\n' +
-      'ему на проверку перед отправкой',
-    label: null,
+    text: 'Пройду по офису и познакомлюсь со всеми коллегами',
+    label: 'Постарайся запомнить все имена',
     pointsTo: ['B'],
   },
   {
     value: '4',
-    text: 'Создать встречу в календаре, отправить \n' +
-      'приглашения на почту всем, кто должен \n' +
-      'присутствовать, после чего дополнительно \n' +
-      'всех обзвонить',
-    label: null,
+    text: 'Останусь на месте, изучу план адаптации',
+    label: 'Верное решение!',
     pointsTo: ['A'],
   },
 ];
 
-export const Screen15 = () => {
+export const Screen15 = ({ contentWrapper }) => {
   const { setNext, addPoints } = useContext(ProgressContext);
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
+    const contentEl = contentWrapper.current;
+    contentEl && contentEl.scrollTo({ top: contentEl.scrollHeight, behavior: "smooth" });
+  };
+
+  const handleComplete = () => {
     setTimeout(setNext, afterAnswerDelay);
   };
 
@@ -71,7 +64,10 @@ export const Screen15 = () => {
       <QuestionDialog
         answers={answers}
         dialogText={dialogText}
+        labelPosition={'bottom'}
+        answersTextSize={'12px'}
         onSelect={handleSelect}
+        onComplete={handleComplete}
       />
     </Wrapper>
   );
