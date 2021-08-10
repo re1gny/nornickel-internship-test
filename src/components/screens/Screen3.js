@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components'
 import { ProgressContext } from "../../contexts/ProgressContext";
 import { QuestionDialog } from "../QuestionDialog";
@@ -11,50 +11,43 @@ const Wrapper = styled.div`
   align-items: center;
   min-height: 100%;
   width: 100%;
-  padding: 98px 30px 40px 30px;
+  padding: 98px 30px 70px 30px;
 `;
 
-const dialogText = 'Ты видишь три автомата: первый выдает \n' +
-  'чай, второй - кофе, а третий радует \n' +
-  'покупателя сюрпризом, случайно наливая \n' +
-  'чай или кофе. Только вот незадача, \n' +
-  'наклейки на автоматах перепутаны! \n' +
-  'Кто-то заботливо подписал около каждого \n' +
-  'автомата "Не" и ты точно знаешь, что все \n' +
-  'названия неправильные. Сколько нужно \n' +
-  'потратить денег, чтобы выяснить, где \n' +
-  'какой автомат? Стакан любого напитка \n' +
-  'стоит 30 рублей.';
+const dialogText = 'Ты уточнил у коллеги, сколько же стоит кофе, он ответил следующее:\n' +
+  'Чашка кофе с сахаром стоит 10 р 50 копеек. Известно, что кофе дороже сахара на 10 р.\n' +
+  'Сколько стоит сам кофе?\n';
 
 const answers = [
   {
-    value: '30',
-    text: '30 рублей',
-    label: 'Молодец, это правильный ответ',
+    value: '10',
+    text: '10 р.',
+    label: 'Нет, подумай еще',
+    pointsTo: [],
+  },
+  {
+    value: '9.5',
+    text: '9 р. 50 к.',
+    label: 'Нет, подумай еще',
+    pointsTo: [],
+  },
+  {
+    value: '10.5',
+    text: '10 р. 25 к.',
+    label: 'Молодец, это правильный ответ! А на самом деле кофе в офисе бесплатный для всех сотрудников)',
     pointsTo: ['A', 'D'],
   },
   {
-    value: '60',
-    text: '60 рублей',
-    label: 'Неплохая попытка, но можно быстрее',
-    pointsTo: [],
-  },
-  {
-    value: '90',
-    text: '90 рублей',
-    label: 'Нет, это очень много, можно потратить всего 30 рублей',
-    pointsTo: [],
-  },
-  {
-    value: '120',
-    text: '120 рублей',
-    label: 'Нет, это очень много, можно потратить всего 30 рублей',
-    pointsTo: [],
+    value: 'free',
+    text: 'Кофе в офисе бесплатный',
+    label: 'Молодец, это правильный ответ! Кофе в офисе бесплатный для всех сотрудников)',
+    pointsTo: ['A', 'D'],
   },
 ];
 
 export const Screen3 = ({ contentWrapper }) => {
   const { setNext, addPoints } = useContext(ProgressContext);
+  const dialogRef = useRef();
 
   const handleSelect = (answer) => {
     answer.pointsTo.forEach(key => addPoints(key, 1));
@@ -62,16 +55,22 @@ export const Screen3 = ({ contentWrapper }) => {
     contentEl && contentEl.scrollTo({ top: contentEl.scrollHeight, behavior: "smooth" });
   };
 
-  const handleComplete = () => {
-    setTimeout(setNext, afterAnswerDelay)
+  const handleComplete = (active) => {
+    if (active.pointsTo && active.pointsTo.length) {
+      setTimeout(setNext, afterAnswerDelay);
+    } else if (dialogRef.current) {
+      setTimeout(dialogRef.current.clearActive, afterAnswerDelay);
+    }
   };
 
   return (
     <Wrapper>
       <QuestionDialog
+        ref={dialogRef}
         answers={answers}
         dialogText={dialogText}
-        labelPosition={'right'}
+        centerAnswersText={true}
+        labelPosition={'bottom'}
         onSelect={handleSelect}
         onComplete={handleComplete}
       />

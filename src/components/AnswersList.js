@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { AnswerBox } from './AnswerBox';
 import { useTypingEffect } from "../hooks/useTypingEffect";
@@ -47,7 +47,11 @@ export const AnswersList = (props) => {
     className,
   } = props;
 
-  const [activeLabel, startTypingEffect] = useTypingEffect({ onComplete });
+  const handleComplete = useCallback(() => {
+    onComplete(active);
+  }, [active, onComplete]);
+
+  const [activeLabel, startTypingEffect] = useTypingEffect({ onComplete: handleComplete });
 
   const isLabelShown = active && active.label;
   const isRightLabelShown = isLabelShown && labelPosition === 'right';
